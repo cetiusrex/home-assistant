@@ -53,7 +53,10 @@ class AbodeBinarySensor(AbodeDevice, BinarySensorDevice):
     @property
     def is_on(self):
         """Return True if the binary sensor is on."""
-        return self._device.is_on
+        if (self._device.type == 'Occupancy') and (self._device.status == 'Online'):
+            return False
+        else:
+            return self._device.is_on
 
     @property
     def device_class(self):
